@@ -31,8 +31,8 @@ do
 
     # Step 2: Extract Neo4j from the tar.gz
     echo "Extracting Neo4j from $NEO4J_TAR..."
-    tar -xzvf "$NEO4J_TAR" 
- 
+    tar -xzvf "$NEO4J_TAR"
+
     # Step 3: Import the CSV files into Neo4j with explicit node labels and relationship types
     echo "Importing data into Neo4j from $current_dataset_dir..."
     "$NEO4J_DIR/bin/neo4j-admin" import --database=neo4j --delimiter=',' \
@@ -52,20 +52,24 @@ do
 
     # Wait for Neo4j to start
     echo "Waiting for Neo4j to start..."
-    sleep 100  # Adjust the time if necessary
+    sleep 200  # Adjust the time if necessary
 
-    # Step 5: Run your Scala program
-    echo "Running your Scala program..."
+    # Step 5: Run your Scala program with LSH clustering
+    echo "Running Scala program with LSH clustering..."
     cd "$SCHEMA_DISCOVERY_DIR" || { echo "Couldn't change directory to $SCHEMA_DISCOVERY_DIR"; exit 1; }
-    sbt run > "$OUTPUT_BASE_DIR/output_FIB25_${dataset#corrupted}.txt"
+    sbt "run l" > "$OUTPUT_BASE_DIR/output_LSH_FIB25_${dataset#corrupted}.txt"
+    
+    # Step 6: Run your Scala program with K-Means clustering
+    echo "Running Scala program with K-Means clustering..."
+    sbt "run k" > "$OUTPUT_BASE_DIR/output_KMeans_FIB25_${dataset#corrupted}.txt"
     cd "$ROOT_DIR" || { echo "Couldn't change back to $ROOT_DIR"; exit 1; }
 
-    # Step 6: Stop Neo4j
+    # Step 7: Stop Neo4j
     echo "Stopping Neo4j..."
     "$NEO4J_DIR/bin/neo4j" stop
-    sleep 60  # Wait 60 seconds to ensure Neo4j has stopped
+    sleep 100  # Wait 60 seconds to ensure Neo4j has stopped
 
-    # Step 7: Dynamically kill any process on port 7687
+    # Step 8: Dynamically kill any process on port 7687
     echo "Checking and killing any process on port $NEO4J_PORT..."
     PID=$(lsof -t -i :$NEO4J_PORT)
 

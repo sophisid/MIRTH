@@ -1,0 +1,54 @@
+[info] welcome to sbt 1.9.9 (Ubuntu Java 11.0.24)
+[info] loading settings for project schemadiscovery-build-build from metals.sbt ...
+[info] loading project definition from /mnt/fast/sophisid/cs562_sdpg/schemadiscovery/project/project
+[info] loading settings for project schemadiscovery-build from metals.sbt,plugins.sbt ...
+[info] loading project definition from /mnt/fast/sophisid/cs562_sdpg/schemadiscovery/project
+[success] Generated .bloop/schemadiscovery-build.json
+[success] Total time: 3 s, completed Oct 31, 2024, 2:21:39 PM
+[info] loading settings for project root from build.sbt ...
+[info] set current project to schemadiscovery (in build file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/)
+[info] running (fork) Main l
+[error] Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+[error] 24/10/31 14:21:46 INFO SparkContext: Running Spark version 3.4.1
+[error] 24/10/31 14:21:46 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[error] 24/10/31 14:21:46 INFO ResourceUtils: ==============================================================
+[error] 24/10/31 14:21:46 INFO ResourceUtils: No custom resources configured for spark.driver.
+[error] 24/10/31 14:21:46 INFO ResourceUtils: ==============================================================
+[error] 24/10/31 14:21:46 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
+[error] 24/10/31 14:21:46 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[error] 24/10/31 14:21:46 INFO ResourceProfile: Limiting resource is cpu
+[error] 24/10/31 14:21:46 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[error] 24/10/31 14:21:46 INFO SecurityManager: Changing view acls to: sophisid
+[error] 24/10/31 14:21:46 INFO SecurityManager: Changing modify acls to: sophisid
+[error] 24/10/31 14:21:46 INFO SecurityManager: Changing view acls groups to: 
+[error] 24/10/31 14:21:46 INFO SecurityManager: Changing modify acls groups to: 
+[error] 24/10/31 14:21:46 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
+[error] 24/10/31 14:21:46 INFO Utils: Successfully started service 'sparkDriver' on port 35433.
+[error] 24/10/31 14:21:46 INFO SparkEnv: Registering MapOutputTracker
+[error] WARNING: An illegal reflective access operation has occurred
+[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_492051d4/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
+[error] WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+[error] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+[error] WARNING: All illegal access operations will be denied in a future release
+[error] 24/10/31 14:21:46 INFO SparkEnv: Registering BlockManagerMaster
+[error] 24/10/31 14:21:46 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[error] 24/10/31 14:21:46 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[error] 24/10/31 14:21:46 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[error] 24/10/31 14:21:46 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-74a4c462-df49-41f1-8793-8f231b17173e
+[error] 24/10/31 14:21:46 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
+[error] 24/10/31 14:21:47 INFO SparkEnv: Registering OutputCommitCoordinator
+[error] 24/10/31 14:21:47 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[error] 24/10/31 14:21:47 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[error] 24/10/31 14:21:47 INFO Executor: Starting executor ID driver on host clusternode4
+[error] 24/10/31 14:21:47 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[error] 24/10/31 14:21:47 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 40297.
+[error] 24/10/31 14:21:47 INFO NettyBlockTransferService: Server created on clusternode4:40297
+[error] 24/10/31 14:21:47 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[error] 24/10/31 14:21:47 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 40297, None)
+[error] 24/10/31 14:21:47 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:40297 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 40297, None)
+[error] 24/10/31 14:21:47 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 40297, None)
+[error] 24/10/31 14:21:47 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 40297, None)
+[info] Loading all nodes from Neo4j
+[error] Nonzero exit code returned from runner: 137
+[error] (Compile / run) Nonzero exit code returned from runner: 137
+[error] Total time: 21 s, completed Oct 31, 2024, 2:22:01 PM
