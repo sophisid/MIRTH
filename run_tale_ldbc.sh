@@ -15,26 +15,26 @@ mkdir -p "$OUTPUT_BASE_DIR"
 
 datasets=($(ls "$DATASETS_DIR" | grep "corrupted"))
 
-# Βρόχος μέσω κάθε dataset
+# Loop through each dataset
 for dataset in "${datasets[@]}"
 do
     echo "==============================="
-    echo "Επεξεργασία Dataset: $dataset"
+    echo "Processing Dataset: $dataset"
     echo "==============================="
 
-    # Διαδρομή του τρέχοντος dataset
+    # Current dataset directory
     current_dataset_dir="$DATASETS_DIR/$dataset"
 
-    # Βήμα 1: Διαγραφή της τρέχουσας βάσης δεδομένων Neo4j
-    echo "Διαγραφή του $NEO4J_VERSION directory..."
+    # Step 1: Remove the current Neo4j database directory
+    echo "Removing $NEO4J_VERSION directory..."
     rm -rf "$NEO4J_DIR"
 
-    # Βήμα 2: Επαναφόρτωση του Neo4j από το tar.gz
-    echo "Εξαγωγή του Neo4j από $NEO4J_TAR..."
-    tar -xzvf "$NEO4J_TAR" 
- 
-    # Βήμα 3: Εισαγωγή των CSV αρχείων στο Neo4j
-    echo "Εισαγωγή δεδομένων στο Neo4j..."
+    # Step 2: Extract Neo4j from the tar.gz
+    echo "Extracting Neo4j from $NEO4J_TAR..."
+    tar -xzvf "$NEO4J_TAR"
+
+    # Step 3: Import the CSV files into Neo4j
+    echo "Importing data into Neo4j..."
     "$NEO4J_DIR/bin/neo4j-admin" import --database=neo4j --delimiter='|' \
         --nodes=Comment="$current_dataset_dir/comment_0_0_corrupted.csv" \
         --nodes=Forum="$current_dataset_dir/forum_0_0_corrupted.csv" \
@@ -68,43 +68,47 @@ do
         --relationships=HAS_TYPE="$current_dataset_dir/tag_hasType_tagclass_0_0_corrupted.csv" \
         --relationships=IS_SUBCLASS_OF="$current_dataset_dir/tagclass_isSubclassOf_tagclass_0_0_corrupted.csv"
 
-    # Βήμα 4: Εκκίνηση του Neo4j
-    echo "Εκκίνηση του Neo4j..."
+    # Step 4: Start Neo4j
+    echo "Starting Neo4j..."
     "$NEO4J_DIR/bin/neo4j" start
 
-    # Περιμένετε μέχρι να ολοκληρωθεί η εκκίνηση του Neo4j
-    echo "Περιμένει για την εκκίνηση του Neo4j..."
-    sleep 100  # Αυξήστε τον χρόνο αν χρειάζεται
+    # Wait for Neo4j to start
+    echo "Waiting for Neo4j to start..."
+    sleep 100  # Adjust the time if necessary
 
-    # Βήμα 5: Εκτέλεση του Scala προγράμματός σου
-    echo "Εκτέλεση του Scala προγράμματός σου..."
-    cd "$SCHEMA_DISCOVERY_DIR" || { echo "Δεν μπόρεσα να μεταβώ στο $SCHEMA_DISCOVERY_DIR"; exit 1; }
-    sbt run > "$OUTPUT_BASE_DIR/output_LDBC_${dataset#corrupted}.txt"
-    cd "$ROOT_DIR" || { echo "Δεν μπόρεσα να επιστρέψω στο $ROOT_DIR"; exit 1; }
+    # Step 5: Run your Scala program with LSH clustering
+    #echo "Running Scala program with LSH clustering..."
+    cd "$SCHEMA_DISCOVERY_DIR" || { echo "Couldn't change directory to $SCHEMA_DISCOVERY_DIR"; exit 1; }
+    sbt "run l" > "$OUTPUT_BASE_DIR/output_LSH_LDBC_${dataset#corrupted}.txt"
 
-    # Βήμα 6: Διακοπή του Neo4j
-    echo "Διακοπή του Neo4j..."
+    # Step 6: Run your Scala program with K-Means clustering
+    echo "Running Scala program with K-Means clustering..."
+    sbt "run k" > "$OUTPUT_BASE_DIR/output_KMeans_LDBC_${dataset#corrupted}.txt"
+    cd "$ROOT_DIR" || { echo "Couldn't change back to $ROOT_DIR"; exit 1; }
+
+    # Step 7: Stop Neo4j
+    echo "Stopping Neo4j..."
     "$NEO4J_DIR/bin/neo4j" stop
-    sleep 60  # Περιμένει 60 δευτερόλεπτα για να σιγουρευτεί ότι ο Neo4j σταμάτησε
+    sleep 100  # Wait 60 seconds to ensure Neo4j has stopped
 
-    # Βήμα 7: Δυναμική διαγραφή διαδικασίας στη θύρα 7687
-    echo "Εύρεση και διακοπή οποιασδήποτε διαδικασίας που χρησιμοποιεί τη θύρα $NEO4J_PORT..."
+    # Step 8: Dynamically kill any process on port 7687
+    echo "Checking and killing any process on port $NEO4J_PORT..."
     PID=$(lsof -t -i :$NEO4J_PORT)
 
     if [ -z "$PID" ]; then
-        echo "Δεν υπάρχει καμία διεργασία στη θύρα $NEO4J_PORT."
+        echo "No process found on port $NEO4J_PORT."
     else
-        echo "Σκοτώνω τη διεργασία με PID: $PID"
+        echo "Killing process with PID: $PID"
         kill -9 $PID
         if [ $? -eq 0 ]; then
-            echo "Η διεργασία $PID σταμάτησε επιτυχώς."
+            echo "Process $PID successfully killed."
         else
-            echo "Αποτυχία διακοπής της διεργασίας $PID."
+            echo "Failed to kill process $PID."
         fi
     fi
 
-    echo "Τέλος επεξεργασίας για το dataset: $dataset"
+    echo "Finished processing dataset: $dataset"
     echo ""
 done
 
-echo "Όλοι οι datasets έχουν επεξεργαστεί."
+echo "All datasets have been processed."

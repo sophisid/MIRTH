@@ -6,26 +6,27 @@ import org.apache.spark.sql.types._
 import scala.collection.mutable
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.ml.feature.MinHashLSH
+import org.apache.spark.ml.clustering.KMeans
 import scala.math._
 
 object Clustering {
   // Function to calculate the ideal number of hash tables
   def calculateNumHashTables(similarityThreshold: Double, desiredCollisionProbability: Double): Int = {
-  require(similarityThreshold > 0.0 && similarityThreshold < 1.0,
-    "similarityThreshold must be between 0 and 1 (exclusive).")
-  require(desiredCollisionProbability > 0.0 && desiredCollisionProbability < 1.0,
-    "desiredCollisionProbability must be between 0 and 1 (exclusive).")
+      require(similarityThreshold > 0.0 && similarityThreshold < 1.0,
+        "similarityThreshold must be between 0 and 1 (exclusive).")
+      require(desiredCollisionProbability > 0.0 && desiredCollisionProbability < 1.0,
+        "desiredCollisionProbability must be between 0 and 1 (exclusive).")
 
-  val numerator = scala.math.log(1 - desiredCollisionProbability)
-  val denominator = scala.math.log(1 - similarityThreshold)
+      val numerator = scala.math.log(1 - desiredCollisionProbability)
+      val denominator = scala.math.log(1 - similarityThreshold)
 
-  val b = numerator / denominator
+      val b = numerator / denominator
 
-  // Round up to the nearest integer
-  val numHashTables = scala.math.ceil(b).toInt
+      // Round up to the nearest integer
+      val numHashTables = scala.math.ceil(b).toInt
 
-  numHashTables
-}
+      numHashTables
+  }
 
 
   // Function to perform LSH clustering
@@ -69,7 +70,7 @@ object Clustering {
   }
 
   // Function to create patterns from clusters
-  def createPatternsFromClusters(df: DataFrame): (Array[Pattern], Map[Long, String]) = {
+  def createPatternsFromLSHClusters(df: DataFrame): (Array[Pattern], Map[Long, String]) = {
     val spark = df.sparkSession
     import spark.implicits._
 
@@ -124,7 +125,8 @@ object Clustering {
       // Create a Node with the common properties
       val node = Node(
         label = s"Cluster_$hashKey",
-        properties = commonProperties.map(prop => prop -> 1).toMap
+        properties = commonProperties.map(prop => prop -> 1).toMap,
+        patternId = s"Pattern_$hashKey"
       )
 
       // Create a Pattern with the node
@@ -168,14 +170,15 @@ object Clustering {
         endLabel <- clusterLabelDst
         if startLabel != endLabel
       } yield {
-        val startNode = Node(label = startLabel, properties = Map.empty)
-        val endNode = Node(label = endLabel, properties = Map.empty)
+      val startNode = Node(label = startLabel, properties = Map.empty, patternId = s"Pattern_$startLabel")
+      val endNode = Node(label = endLabel, properties = Map.empty, patternId = s"Pattern_$endLabel")
 
         Edge(
           startNode = startNode,
           relationshipType = relationshipType,
           endNode = endNode,
-          properties = properties
+          properties = properties,
+          patternId = s"Pattern_${startLabel}_to_${endLabel}"
         )
       }
     }.collect()
@@ -211,6 +214,81 @@ object Clustering {
     }
 
     patternsMap.values.toArray
+  }
+
+  def performKMeansClustering(df: DataFrame, k: Int): DataFrame = {
+    val kmeans = new KMeans()
+      .setK(k)
+      .setSeed(1L) // For reproducibility
+      .setFeaturesCol("features")
+      .setPredictionCol("clusterLabel")
+
+    val model = kmeans.fit(df)
+    val predictions = model.transform(df)
+    predictions
+  }
+
+  // Function to create patterns from k-means clusters
+  def createPatternsFromKMeansClusters(df: DataFrame): (Array[Pattern], Map[Long, String]) = {
+    val spark = df.sparkSession
+    import spark.implicits._
+
+    // Exclude certain columns
+    val excludeCols = Set("_nodeId", "features", "clusterLabel")
+
+    // List of property columns
+    val propertyCols = df.columns.filterNot(colName => excludeCols.contains(colName))
+
+    // Build aggregation expressions for all property columns
+    val aggExprs = List(
+      collect_list(col("_nodeId")).alias("nodeIds"),
+      count("*").alias("clusterSize")
+    ) ++ propertyCols.map(colName => sum(col(colName)).alias(colName))
+
+    // Perform groupBy and aggregate
+    val clustersAggDF = df.groupBy("clusterLabel")
+      .agg(aggExprs.head, aggExprs.tail: _*)
+
+    // Map node IDs to cluster labels
+    val nodeIdToClusterLabel = df.select("_nodeId", "clusterLabel")
+      .as[(String, Int)]
+      .map { case (nodeId, clusterLabel) =>
+        nodeId.toLong -> s"Cluster_$clusterLabel"
+      }.collect().toMap
+
+    // Process clustersAggDF to create patterns
+    val patterns = clustersAggDF.rdd.map { row =>
+      val clusterLabel = row.getAs[Int]("clusterLabel")
+      val nodeIds = row.getAs[Seq[String]]("nodeIds")
+      val clusterSize = row.getAs[Long]("clusterSize")
+
+      // Find common properties where sum equals clusterSize
+      val commonProperties = propertyCols.filter { colName =>
+        val colSum = row.getAs[Any](colName) match {
+          case n: Number => n.longValue()
+          case _ => 0L
+        }
+        colSum == clusterSize
+      }
+
+      // Create a Node with the common properties
+      val node = Node(
+        label = s"Cluster_$clusterLabel",
+        properties = commonProperties.map(prop => prop -> 1).toMap,
+        patternId = s"Pattern_$clusterLabel"
+      )
+
+      // Create a Pattern with the node
+      val pattern = new Pattern(nodes = List(node))
+      pattern
+    }.collect()
+
+    println(s"Total patterns created: ${patterns.length}")
+    println("Sample patterns:")
+    patterns.take(5).foreach(pattern => println(pattern.toString))
+
+    // Return patterns and nodeIdToClusterLabel mapping
+    (patterns, nodeIdToClusterLabel)
   }
   
 }

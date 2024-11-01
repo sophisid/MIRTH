@@ -4,7 +4,8 @@ case class Node(
   properties: Map[String, Any],
   isOptional: Boolean = false,
   minCardinality: Int = 1,
-  maxCardinality: Int = 1
+  maxCardinality: Int = 1,
+  patternId: String
 )
 
 // Define the Edge class
@@ -16,14 +17,16 @@ case class Edge(
   properties: Map[String, Any],
   isOptional: Boolean = false,
   minCardinality: Int = 1,
-  maxCardinality: Int = 1
+  maxCardinality: Int = 1,
+  patternId: String = ""
 ) extends Serializable
 
 // Define the Constraint class
 case class Constraint(
   field: String,
   operation: String,
-  value: Any
+  value: Any,
+  patternId: String = ""
 )
 
 // Define the Pattern class that holds nodes, edges, and constraints
