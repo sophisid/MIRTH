@@ -4,50 +4,50 @@
 [info] loading settings for project schemadiscovery-build from metals.sbt,plugins.sbt ...
 [info] loading project definition from /mnt/fast/sophisid/cs562_sdpg/schemadiscovery/project
 [success] Generated .bloop/schemadiscovery-build.json
-[success] Total time: 3 s, completed Oct 31, 2024, 5:57:02 PM
+[success] Total time: 3 s, completed Nov 5, 2024, 11:31:37 AM
 [info] loading settings for project root from build.sbt ...
 [info] set current project to schemadiscovery (in build file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/)
 [info] running (fork) Main l
 [error] Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
-[error] 24/10/31 17:57:08 INFO SparkContext: Running Spark version 3.4.1
-[error] 24/10/31 17:57:08 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-[error] 24/10/31 17:57:09 INFO ResourceUtils: ==============================================================
-[error] 24/10/31 17:57:09 INFO ResourceUtils: No custom resources configured for spark.driver.
-[error] 24/10/31 17:57:09 INFO ResourceUtils: ==============================================================
-[error] 24/10/31 17:57:09 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
-[error] 24/10/31 17:57:09 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
-[error] 24/10/31 17:57:09 INFO ResourceProfile: Limiting resource is cpu
-[error] 24/10/31 17:57:09 INFO ResourceProfileManager: Added ResourceProfile id: 0
-[error] 24/10/31 17:57:09 INFO SecurityManager: Changing view acls to: sophisid
-[error] 24/10/31 17:57:09 INFO SecurityManager: Changing modify acls to: sophisid
-[error] 24/10/31 17:57:09 INFO SecurityManager: Changing view acls groups to: 
-[error] 24/10/31 17:57:09 INFO SecurityManager: Changing modify acls groups to: 
-[error] 24/10/31 17:57:09 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
-[error] 24/10/31 17:57:09 INFO Utils: Successfully started service 'sparkDriver' on port 42067.
-[error] 24/10/31 17:57:09 INFO SparkEnv: Registering MapOutputTracker
+[error] 24/11/05 11:31:43 INFO SparkContext: Running Spark version 3.4.1
+[error] 24/11/05 11:31:43 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[error] 24/11/05 11:31:44 INFO ResourceUtils: ==============================================================
+[error] 24/11/05 11:31:44 INFO ResourceUtils: No custom resources configured for spark.driver.
+[error] 24/11/05 11:31:44 INFO ResourceUtils: ==============================================================
+[error] 24/11/05 11:31:44 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
+[error] 24/11/05 11:31:44 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[error] 24/11/05 11:31:44 INFO ResourceProfile: Limiting resource is cpu
+[error] 24/11/05 11:31:44 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[error] 24/11/05 11:31:44 INFO SecurityManager: Changing view acls to: sophisid
+[error] 24/11/05 11:31:44 INFO SecurityManager: Changing modify acls to: sophisid
+[error] 24/11/05 11:31:44 INFO SecurityManager: Changing view acls groups to: 
+[error] 24/11/05 11:31:44 INFO SecurityManager: Changing modify acls groups to: 
+[error] 24/11/05 11:31:44 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
+[error] 24/11/05 11:31:44 INFO Utils: Successfully started service 'sparkDriver' on port 42839.
+[error] 24/11/05 11:31:44 INFO SparkEnv: Registering MapOutputTracker
 [error] WARNING: An illegal reflective access operation has occurred
-[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_76174369/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
+[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_887b7bb7/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
 [error] WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
 [error] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 [error] WARNING: All illegal access operations will be denied in a future release
-[error] 24/10/31 17:57:09 INFO SparkEnv: Registering BlockManagerMaster
-[error] 24/10/31 17:57:09 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
-[error] 24/10/31 17:57:09 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
-[error] 24/10/31 17:57:09 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
-[error] 24/10/31 17:57:09 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-5877147a-bd81-4f31-8970-f9d68e4b03dc
-[error] 24/10/31 17:57:09 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
-[error] 24/10/31 17:57:09 INFO SparkEnv: Registering OutputCommitCoordinator
-[error] 24/10/31 17:57:09 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
-[error] 24/10/31 17:57:09 INFO Utils: Successfully started service 'SparkUI' on port 4040.
-[error] 24/10/31 17:57:09 INFO Executor: Starting executor ID driver on host clusternode4
-[error] 24/10/31 17:57:09 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
-[error] 24/10/31 17:57:09 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 33811.
-[error] 24/10/31 17:57:09 INFO NettyBlockTransferService: Server created on clusternode4:33811
-[error] 24/10/31 17:57:09 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
-[error] 24/10/31 17:57:09 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 33811, None)
-[error] 24/10/31 17:57:09 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:33811 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 33811, None)
-[error] 24/10/31 17:57:09 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 33811, None)
-[error] 24/10/31 17:57:09 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 33811, None)
+[error] 24/11/05 11:31:44 INFO SparkEnv: Registering BlockManagerMaster
+[error] 24/11/05 11:31:44 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[error] 24/11/05 11:31:44 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[error] 24/11/05 11:31:44 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[error] 24/11/05 11:31:44 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-0d87224d-d0d0-4c3a-bf07-c2dbd1dfc131
+[error] 24/11/05 11:31:44 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
+[error] 24/11/05 11:31:44 INFO SparkEnv: Registering OutputCommitCoordinator
+[error] 24/11/05 11:31:44 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[error] 24/11/05 11:31:44 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[error] 24/11/05 11:31:44 INFO Executor: Starting executor ID driver on host clusternode4
+[error] 24/11/05 11:31:44 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[error] 24/11/05 11:31:44 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 46431.
+[error] 24/11/05 11:31:44 INFO NettyBlockTransferService: Server created on clusternode4:46431
+[error] 24/11/05 11:31:44 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[error] 24/11/05 11:31:44 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 46431, None)
+[error] 24/11/05 11:31:44 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:46431 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 46431, None)
+[error] 24/11/05 11:31:44 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 46431, None)
+[error] 24/11/05 11:31:44 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 46431, None)
 [info] Loading all nodes from Neo4j
 [info] Total nodes loaded: 486267
 [info] Schema of nodesDF:
@@ -119,7 +119,7 @@
 [info] F1-Score: 0.9013
 [info] === LSH Clustering Results ===
 [info] Number of nodes assigned to clusters: 486267
-[info] Number of edges after clustering: 999
+[info] Number of edges after clustering: 9
 [info] Number of patterns (types) found: 60
 [info] Types found: Cluster_5.75313697E8_2.82022781E8_7.01024633E8_3.96341276E8_5.56894848E8_5.02356114E8_5.76653311E8_3.13725834E8_5.72553568E8_8.41158497E8_9.25597874E8, Cluster_4.8400058E8_2.82022781E8_1.026764531E9_2.0388063E7_5.6390206E7_5.02356114E8_5.03693874E8_3.13725834E8_5.72553568E8_1.7738278E7_4.03438515E8, Cluster_1.51080382E9_2.82022781E8_1.026764531E9_8.7126731E8_1.20162419E9_1.469718604E9_1.520336499E9_3.13725834E8_9.76023233E8_1.620793379E9_1.245506461E9, Cluster_4.8400058E8_2.82022781E8_6.7021147E8_3.96341276E8_4.84782498E8_4.67906193E8_5.76653311E8_3.13725834E8_1.62175097E8_1.7738278E7_7.73909795E8, Cluster_2.63483656E8_6.5902527E7_2.82845246E8_2.0388063E7_5.6390206E7_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_4.8400058E8_2.82022781E8_7.01024633E8_7.72294489E8_4.84782498E8_1.117223529E9_6.49612748E8_3.13725834E8_9.76023233E8_1.7738278E7_1.02672326E9, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_1.78696741E8_7.01119548E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_4.8400058E8_2.82022781E8_6.7021147E8_7.12958632E8_4.84782498E8_4.67906193E8_1.160328807E9_3.13725834E8_1.62175097E8_1.7738278E7_7.73909795E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_1.78696741E8_7.01119548E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_7.04517504E8_6.5902527E7_2.82845246E8_2.0388063E7_5.6390206E7_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_1.34279849E8_6.5902527E7_1.19975297E8_2.0388063E7_5.6390206E7_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_2.63483656E8_6.5902527E7_1.19975297E8_2.0388063E7_5.6390206E7_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_5.75313697E8_2.82022781E8_6.7021147E8_3.96341276E8_5.56894848E8_4.67906193E8_5.76653311E8_3.13725834E8_1.62175097E8_8.41158497E8_7.73909795E8, Cluster_7.04517504E8_6.5902527E7_2.82845246E8_4.55677133E8_7.01119548E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_6.66626814E8_6.5902527E7_1.19975297E8_4.55677133E8_6.29007198E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_1.198973779E9_2.82022781E8_6.7021147E8_7.12958632E8_1.20162419E9_4.67906193E8_1.520336499E9_3.13725834E8_1.62175097E8_1.360915085E9_1.245506461E9, Cluster_1.34279849E8_6.5902527E7_1.19975297E8_1.78696741E8_6.29007198E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_2.25592966E8_6.5902527E7_1.19975297E8_2.0388063E7_5.6390206E7_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_4.2966732E7_9.6037867E7_1.5078846E8_7.972392E7_2.0334031E7_8.0961197E7_2.11856126E8_8.8690589E7_787231.0_1.90045898E8_3.2967235E7, Cluster_4.8400058E8_2.82022781E8_6.7021147E8_3.96341276E8_4.84782498E8_4.67906193E8_5.76653311E8_3.13725834E8_1.62175097E8_1.7738278E7_9.25597874E8, Cluster_2.25592966E8_6.5902527E7_2.82845246E8_2.38032598E8_6.65063373E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_1.78696741E8_6.65063373E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_1.78696741E8_6.65063373E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_4.8400058E8_2.82022781E8_6.7021147E8_2.0388063E7_5.6390206E7_4.67906193E8_5.03693874E8_3.13725834E8_1.62175097E8_1.7738278E7_4.03438515E8, Cluster_2.25592966E8_6.5902527E7_2.82845246E8_2.38032598E8_7.01119548E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_4.8400058E8_2.82022781E8_1.026764531E9_3.96341276E8_4.84782498E8_5.02356114E8_5.76653311E8_3.13725834E8_5.72553568E8_1.7738278E7_7.73909795E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_1.78696741E8_7.01119548E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_5.75313697E8_2.82022781E8_6.7021147E8_2.0388063E7_5.6390206E7_4.67906193E8_5.03693874E8_3.13725834E8_1.62175097E8_8.41158497E8_4.03438515E8, Cluster_2.63483656E8_6.5902527E7_1.19975297E8_2.38032598E8_6.29007198E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_5.75313697E8_2.82022781E8_6.7021147E8_3.96341276E8_5.56894848E8_4.67906193E8_5.76653311E8_3.13725834E8_1.62175097E8_8.41158497E8_9.25597874E8, Cluster_5.75313697E8_2.82022781E8_1.026764531E9_3.96341276E8_5.56894848E8_5.02356114E8_5.76653311E8_3.13725834E8_5.72553568E8_8.41158497E8_7.73909795E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_2.0388063E7_5.6390206E7_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_7.04517504E8_6.5902527E7_2.82845246E8_4.55677133E8_7.01119548E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_1.34279849E8_6.5902527E7_1.19975297E8_1.78696741E8_6.29007198E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_1.34279849E8_6.5902527E7_1.19975297E8_1.78696741E8_6.29007198E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_2.25592966E8_6.5902527E7_1.19975297E8_2.38032598E8_6.29007198E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_1.198973779E9_2.82022781E8_6.7021147E8_7.12958632E8_1.05739949E9_4.67906193E8_6.49612748E8_3.13725834E8_1.62175097E8_1.360915085E9_1.245506461E9, Cluster_5.75313697E8_2.82022781E8_1.026764531E9_3.96341276E8_5.56894848E8_5.02356114E8_5.76653311E8_3.13725834E8_5.72553568E8_8.41158497E8_9.25597874E8, Cluster_1.34279849E8_6.5902527E7_1.19975297E8_2.0388063E7_5.6390206E7_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_4.8400058E8_2.82022781E8_7.01024633E8_3.96341276E8_4.84782498E8_5.02356114E8_5.76653311E8_3.13725834E8_5.72553568E8_1.7738278E7_9.25597874E8, Cluster_7.04517504E8_6.5902527E7_2.82845246E8_4.55677133E8_6.65063373E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_4.8400058E8_2.82022781E8_1.026764531E9_2.0388063E7_5.6390206E7_1.345145948E9_5.03693874E8_3.13725834E8_9.76023233E8_1.7738278E7_4.03438515E8, Cluster_2.63483656E8_6.5902527E7_2.82845246E8_2.38032598E8_6.65063373E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_7.04517504E8_6.5902527E7_2.82845246E8_4.55677133E8_6.65063373E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_4.8400058E8_2.82022781E8_6.7021147E8_7.12958632E8_4.84782498E8_4.67906193E8_1.160328807E9_3.13725834E8_1.62175097E8_1.7738278E7_1.02672326E9, Cluster_1.34279849E8_6.5902527E7_1.19975297E8_1.78696741E8_6.29007198E8_4.6511276E7_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_2.63483656E8_6.5902527E7_2.82845246E8_2.38032598E8_7.01119548E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_6.66626814E8_6.5902527E7_1.19975297E8_2.0388063E7_5.6390206E7_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_4.8400058E8_2.82022781E8_1.026764531E9_8.7126731E8_4.84782498E8_1.345145948E9_1.160328807E9_3.13725834E8_9.76023233E8_1.7738278E7_1.02672326E9, Cluster_2.63483656E8_6.5902527E7_2.82845246E8_2.38032598E8_6.65063373E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_4.8400058E8_2.82022781E8_6.7021147E8_7.12958632E8_4.84782498E8_4.67906193E8_6.49612748E8_3.13725834E8_1.62175097E8_1.7738278E7_1.02672326E9, Cluster_4.8400058E8_2.82022781E8_1.026764531E9_8.7126731E8_4.84782498E8_1.276246106E9_1.160328807E9_3.13725834E8_8.953293E8_1.7738278E7_7.73909795E8, Cluster_4.8400058E8_2.82022781E8_1.026764531E9_3.96341276E8_4.84782498E8_5.02356114E8_5.76653311E8_3.13725834E8_5.72553568E8_1.7738278E7_9.25597874E8, Cluster_2.63483656E8_6.5902527E7_2.82845246E8_2.38032598E8_7.01119548E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_1.78696741E8_6.65063373E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.55126594E8, Cluster_1.34279849E8_6.5902527E7_2.82845246E8_2.0388063E7_5.6390206E7_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_4.03438515E8, Cluster_1.198973779E9_2.82022781E8_6.7021147E8_7.12958632E8_6.65063373E8_4.67906193E8_1.520336499E9_3.13725834E8_1.62175097E8_1.057251454E9_7.73909795E8, Cluster_1.198973779E9_2.82022781E8_6.7021147E8_2.0388063E7_5.6390206E7_4.67906193E8_5.03693874E8_3.13725834E8_1.62175097E8_1.360915085E9_4.03438515E8, Cluster_2.63483656E8_6.5902527E7_1.19975297E8_2.38032598E8_6.29007198E8_2.74433695E8_6.5937252E7_1.06911962E8_8.1481164E7_4.49924192E8_5.04563901E8, Cluster_5.75313697E8_2.82022781E8_1.026764531E9_2.0388063E7_5.6390206E7_5.02356114E8_5.03693874E8_3.13725834E8_5.72553568E8_8.41158497E8_4.03438515E8
-[success] Total time: 69 s (01:09), completed Oct 31, 2024, 5:58:12 PM
+[success] Total time: 68 s (01:08), completed Nov 5, 2024, 11:32:45 AM
