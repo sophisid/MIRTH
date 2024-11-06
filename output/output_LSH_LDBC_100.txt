@@ -4,50 +4,50 @@
 [info] loading settings for project schemadiscovery-build from metals.sbt,plugins.sbt ...
 [info] loading project definition from /mnt/fast/sophisid/cs562_sdpg/schemadiscovery/project
 [success] Generated .bloop/schemadiscovery-build.json
-[success] Total time: 3 s, completed Oct 31, 2024, 11:56:30 AM
+[success] Total time: 3 s, completed Nov 5, 2024, 1:08:28 AM
 [info] loading settings for project root from build.sbt ...
 [info] set current project to schemadiscovery (in build file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/)
 [info] running (fork) Main l
 [error] Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
-[error] 24/10/31 11:56:37 INFO SparkContext: Running Spark version 3.4.1
-[error] 24/10/31 11:56:37 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-[error] 24/10/31 11:56:37 INFO ResourceUtils: ==============================================================
-[error] 24/10/31 11:56:37 INFO ResourceUtils: No custom resources configured for spark.driver.
-[error] 24/10/31 11:56:37 INFO ResourceUtils: ==============================================================
-[error] 24/10/31 11:56:37 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
-[error] 24/10/31 11:56:37 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
-[error] 24/10/31 11:56:37 INFO ResourceProfile: Limiting resource is cpu
-[error] 24/10/31 11:56:37 INFO ResourceProfileManager: Added ResourceProfile id: 0
-[error] 24/10/31 11:56:37 INFO SecurityManager: Changing view acls to: sophisid
-[error] 24/10/31 11:56:37 INFO SecurityManager: Changing modify acls to: sophisid
-[error] 24/10/31 11:56:37 INFO SecurityManager: Changing view acls groups to: 
-[error] 24/10/31 11:56:37 INFO SecurityManager: Changing modify acls groups to: 
-[error] 24/10/31 11:56:37 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
-[error] 24/10/31 11:56:37 INFO Utils: Successfully started service 'sparkDriver' on port 38925.
-[error] 24/10/31 11:56:37 INFO SparkEnv: Registering MapOutputTracker
+[error] 24/11/05 01:08:34 INFO SparkContext: Running Spark version 3.4.1
+[error] 24/11/05 01:08:34 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[error] 24/11/05 01:08:34 INFO ResourceUtils: ==============================================================
+[error] 24/11/05 01:08:34 INFO ResourceUtils: No custom resources configured for spark.driver.
+[error] 24/11/05 01:08:34 INFO ResourceUtils: ==============================================================
+[error] 24/11/05 01:08:34 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
+[error] 24/11/05 01:08:34 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[error] 24/11/05 01:08:35 INFO ResourceProfile: Limiting resource is cpu
+[error] 24/11/05 01:08:35 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[error] 24/11/05 01:08:35 INFO SecurityManager: Changing view acls to: sophisid
+[error] 24/11/05 01:08:35 INFO SecurityManager: Changing modify acls to: sophisid
+[error] 24/11/05 01:08:35 INFO SecurityManager: Changing view acls groups to: 
+[error] 24/11/05 01:08:35 INFO SecurityManager: Changing modify acls groups to: 
+[error] 24/11/05 01:08:35 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
+[error] 24/11/05 01:08:35 INFO Utils: Successfully started service 'sparkDriver' on port 45967.
+[error] 24/11/05 01:08:35 INFO SparkEnv: Registering MapOutputTracker
 [error] WARNING: An illegal reflective access operation has occurred
-[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_5c4729c5/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
+[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_3201dfcf/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
 [error] WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
 [error] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 [error] WARNING: All illegal access operations will be denied in a future release
-[error] 24/10/31 11:56:38 INFO SparkEnv: Registering BlockManagerMaster
-[error] 24/10/31 11:56:38 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
-[error] 24/10/31 11:56:38 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
-[error] 24/10/31 11:56:38 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
-[error] 24/10/31 11:56:38 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-0b43845e-c8c1-4f8f-9215-22d042bea8a2
-[error] 24/10/31 11:56:38 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
-[error] 24/10/31 11:56:38 INFO SparkEnv: Registering OutputCommitCoordinator
-[error] 24/10/31 11:56:38 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
-[error] 24/10/31 11:56:38 INFO Utils: Successfully started service 'SparkUI' on port 4040.
-[error] 24/10/31 11:56:38 INFO Executor: Starting executor ID driver on host clusternode4
-[error] 24/10/31 11:56:38 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
-[error] 24/10/31 11:56:38 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 34689.
-[error] 24/10/31 11:56:38 INFO NettyBlockTransferService: Server created on clusternode4:34689
-[error] 24/10/31 11:56:38 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
-[error] 24/10/31 11:56:38 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 34689, None)
-[error] 24/10/31 11:56:38 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:34689 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 34689, None)
-[error] 24/10/31 11:56:38 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 34689, None)
-[error] 24/10/31 11:56:38 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 34689, None)
+[error] 24/11/05 01:08:35 INFO SparkEnv: Registering BlockManagerMaster
+[error] 24/11/05 01:08:35 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[error] 24/11/05 01:08:35 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[error] 24/11/05 01:08:35 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[error] 24/11/05 01:08:35 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-0d287000-0c09-4dc1-8e47-9113b1170262
+[error] 24/11/05 01:08:35 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
+[error] 24/11/05 01:08:35 INFO SparkEnv: Registering OutputCommitCoordinator
+[error] 24/11/05 01:08:35 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[error] 24/11/05 01:08:35 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[error] 24/11/05 01:08:35 INFO Executor: Starting executor ID driver on host clusternode4
+[error] 24/11/05 01:08:35 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[error] 24/11/05 01:08:35 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 35303.
+[error] 24/11/05 01:08:35 INFO NettyBlockTransferService: Server created on clusternode4:35303
+[error] 24/11/05 01:08:35 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[error] 24/11/05 01:08:35 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 35303, None)
+[error] 24/11/05 01:08:35 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:35303 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 35303, None)
+[error] 24/11/05 01:08:35 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 35303, None)
+[error] 24/11/05 01:08:35 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 35303, None)
 [info] Loading all nodes from Neo4j
 [info] Total nodes loaded: 3181724
 [info] Schema of nodesDF:
@@ -97,7 +97,7 @@
 [info] F1-Score: 0.9944
 [info] === LSH Clustering Results ===
 [info] Number of nodes assigned to clusters: 3181724
-[info] Number of edges after clustering: 866
+[info] Number of edges after clustering: 3
 [info] Number of patterns (types) found: 4
 [info] Types found: Cluster_4.4610989E8_6.5902527E7_1.19975297E8_3.37005419E8_1.64558731E8_4.67906193E8_1.447377062E9_1.25133335E8_1.62175097E8_1.90045898E8_2.51750436E8_1.3690439E7_6.8950245E7, Cluster_2.25592966E8_6.5902527E7_1.19975297E8_4.95314097E8_1.64558731E8_4.6511276E7_1.447377062E9_1.25133335E8_1.62175097E8_4.49924192E8_2.51750436E8_4.36339678E8_6.8950245E7, Cluster_2.25592966E8_6.5902527E7_1.19975297E8_4.95314097E8_1.28502556E8_4.6511276E7_1.447377062E9_1.25133335E8_1.62175097E8_4.49924192E8_2.51750436E8_2.52245692E8_6.8950245E7, Cluster_7.57939931E8_6.5902527E7_2.82845246E8_4.95314097E8_1.64558731E8_6.61378691E8_1.447377062E9_1.25133335E8_2.4286903E8_4.49924192E8_2.51750436E8_4.36339678E8_2.71500278E8
-[success] Total time: 324 s (05:24), completed Oct 31, 2024, 12:01:55 PM
+[success] Total time: 308 s (05:08), completed Nov 5, 2024, 1:13:37 AM

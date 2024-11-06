@@ -144,47 +144,63 @@ object Clustering {
   }
 
   // Function to create edges from relationships
-  def createEdgesFromRelationships(
+def createEdgesFromRelationships(
     relationshipsDF: DataFrame,
     nodeIdToClusterLabel: Map[Long, String]
-  ): Array[Edge] = {
+): Array[Edge] = {
     val spark = relationshipsDF.sparkSession
     import spark.implicits._
 
     // Broadcast the nodeIdToClusterLabel mapping for efficiency
     val nodeIdToClusterLabelBroadcast = spark.sparkContext.broadcast(nodeIdToClusterLabel)
 
+    // Function to extract node type from the cluster label (e.g., "Cluster_TypeA_TypeB" -> "TypeA")
+    def extractNodeType(label: String): String = label.split("_").drop(1).mkString("_")
+
     // Map relationships to edges
     val edges = relationshipsDF.rdd.flatMap { row =>
-      val srcId = row.getAs[Long]("srcId")
-      val dstId = row.getAs[Long]("dstId")
-      val relationshipType = row.getAs[String]("relationshipType")
-      val properties = row.getAs[Map[String, Any]]("properties")
+        val srcId = row.getAs[Long]("srcId")
+        val dstId = row.getAs[Long]("dstId")
+        val relationshipType = row.getAs[String]("relationshipType")
+        val properties = row.getAs[Map[String, Any]]("properties")
 
-      val clusterLabelSrc = nodeIdToClusterLabelBroadcast.value.get(srcId)
-      val clusterLabelDst = nodeIdToClusterLabelBroadcast.value.get(dstId)
+        val clusterLabelSrc = nodeIdToClusterLabelBroadcast.value.get(srcId)
+        val clusterLabelDst = nodeIdToClusterLabelBroadcast.value.get(dstId)
 
-      // Only create edge if both nodes have cluster labels and are in different clusters
-      for {
-        startLabel <- clusterLabelSrc
-        endLabel <- clusterLabelDst
-        if startLabel != endLabel
-      } yield {
-      val startNode = Node(label = startLabel, properties = Map.empty, patternId = s"Pattern_$startLabel")
-      val endNode = Node(label = endLabel, properties = Map.empty, patternId = s"Pattern_$endLabel")
+        // Only create edge if both nodes have cluster labels and are in different clusters
+        for {
+            startLabel <- clusterLabelSrc
+            endLabel <- clusterLabelDst
+            if startLabel != endLabel
+        } yield {
+            // Extract the types from labels for both start and end nodes
+            val startType = extractNodeType(startLabel)
+            val endType = extractNodeType(endLabel)
 
-        Edge(
-          startNode = startNode,
-          relationshipType = relationshipType,
-          endNode = endNode,
-          properties = properties,
-          patternId = s"Pattern_${startLabel}_to_${endLabel}"
-        )
-      }
-    }.collect()
+            val startNode = Node(label = startLabel, properties = Map.empty, patternId = s"Pattern_$startLabel")
+            val endNode = Node(label = endLabel, properties = Map.empty, patternId = s"Pattern_$endLabel")
 
-    edges
-  }
+            Edge(
+                startNode = startNode,
+                relationshipType = relationshipType,
+                endNode = endNode,
+                properties = properties,
+                patternId = s"Pattern_${startType}_to_${endType}"
+            )
+        }
+    }
+
+    // Collect unique edges by (startType, relationshipType, endType)
+    val uniqueEdges = edges
+        .map(edge => ((extractNodeType(edge.startNode.label), edge.relationshipType, extractNodeType(edge.endNode.label)), edge))
+        .reduceByKey((edge1, _) => edge1) // Keep one edge per unique key
+        .values
+        .collect()
+
+    uniqueEdges
+}
+
+
   
   def integrateEdgesIntoPatterns(
       edges: Array[Edge],
