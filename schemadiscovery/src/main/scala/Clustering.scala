@@ -7,6 +7,7 @@ import scala.collection.mutable
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.ml.feature.MinHashLSH
 import org.apache.spark.ml.clustering.KMeans
+import org.apache.spark.sql.expressions.Window
 import scala.math._
 
 object Clustering {
@@ -144,64 +145,62 @@ object Clustering {
   }
 
   // Function to create edges from relationships
-def createEdgesFromRelationships(
-    relationshipsDF: DataFrame,
-    nodeIdToClusterLabel: Map[Long, String]
-): Array[Edge] = {
-    val spark = relationshipsDF.sparkSession
-    import spark.implicits._
+  def createEdgesFromRelationships(
+      relationshipsDF: DataFrame,
+      nodeIdToClusterLabel: Map[Long, String]
+  ): Array[Edge] = {
+      val spark = relationshipsDF.sparkSession
+      import spark.implicits._
 
-    // Broadcast the nodeIdToClusterLabel mapping for efficiency
-    val nodeIdToClusterLabelBroadcast = spark.sparkContext.broadcast(nodeIdToClusterLabel)
+      // Broadcast the nodeIdToClusterLabel mapping for efficiency
+      val nodeIdToClusterLabelBroadcast = spark.sparkContext.broadcast(nodeIdToClusterLabel)
 
-    // Function to extract node type from the cluster label (e.g., "Cluster_TypeA_TypeB" -> "TypeA")
-    def extractNodeType(label: String): String = label.split("_").drop(1).mkString("_")
+      // Function to extract node type from the cluster label (e.g., "Cluster_TypeA_TypeB" -> "TypeA")
+      def extractNodeType(label: String): String = label.split("_").drop(1).mkString("_")
 
-    // Map relationships to edges
-    val edges = relationshipsDF.rdd.flatMap { row =>
-        val srcId = row.getAs[Long]("srcId")
-        val dstId = row.getAs[Long]("dstId")
-        val relationshipType = row.getAs[String]("relationshipType")
-        val properties = row.getAs[Map[String, Any]]("properties")
+      // Map relationships to edges
+      val edges = relationshipsDF.rdd.flatMap { row =>
+          val srcId = row.getAs[Long]("srcId")
+          val dstId = row.getAs[Long]("dstId")
+          val relationshipType = row.getAs[String]("relationshipType")
+          val properties = row.getAs[Map[String, Any]]("properties")
 
-        val clusterLabelSrc = nodeIdToClusterLabelBroadcast.value.get(srcId)
-        val clusterLabelDst = nodeIdToClusterLabelBroadcast.value.get(dstId)
+          val clusterLabelSrc = nodeIdToClusterLabelBroadcast.value.get(srcId)
+          val clusterLabelDst = nodeIdToClusterLabelBroadcast.value.get(dstId)
 
-        // Only create edge if both nodes have cluster labels and are in different clusters
-        for {
-            startLabel <- clusterLabelSrc
-            endLabel <- clusterLabelDst
-            if startLabel != endLabel
-        } yield {
-            // Extract the types from labels for both start and end nodes
-            val startType = extractNodeType(startLabel)
-            val endType = extractNodeType(endLabel)
+          // Only create edge if both nodes have cluster labels and are in different clusters
+          for {
+              startLabel <- clusterLabelSrc
+              endLabel <- clusterLabelDst
+              if startLabel != endLabel
+          } yield {
+              // Extract the types from labels for both start and end nodes
+              val startType = extractNodeType(startLabel)
+              val endType = extractNodeType(endLabel)
 
-            val startNode = Node(label = startLabel, properties = Map.empty, patternId = s"Pattern_$startLabel")
-            val endNode = Node(label = endLabel, properties = Map.empty, patternId = s"Pattern_$endLabel")
+              val startNode = Node(label = startLabel, properties = Map.empty, patternId = s"Pattern_$startLabel")
+              val endNode = Node(label = endLabel, properties = Map.empty, patternId = s"Pattern_$endLabel")
 
-            Edge(
-                startNode = startNode,
-                relationshipType = relationshipType,
-                endNode = endNode,
-                properties = properties,
-                patternId = s"Pattern_${startType}_to_${endType}"
-            )
-        }
-    }
+              Edge(
+                  startNode = startNode,
+                  relationshipType = relationshipType,
+                  endNode = endNode,
+                  properties = properties,
+                  patternId = s"Pattern_${startType}_to_${endType}"
+              )
+          }
+      }
 
-    // Collect unique edges by (startType, relationshipType, endType)
-    val uniqueEdges = edges
-        .map(edge => ((extractNodeType(edge.startNode.label), edge.relationshipType, extractNodeType(edge.endNode.label)), edge))
-        .reduceByKey((edge1, _) => edge1) // Keep one edge per unique key
-        .values
-        .collect()
+      // Collect unique edges by (startType, relationshipType, endType)
+      val uniqueEdges = edges
+          .map(edge => ((extractNodeType(edge.startNode.label), edge.relationshipType, extractNodeType(edge.endNode.label)), edge))
+          .reduceByKey((edge1, _) => edge1) // Keep one edge per unique key
+          .values
+          .collect()
 
-    uniqueEdges
-}
+      uniqueEdges
+  }
 
-
-  
   def integrateEdgesIntoPatterns(
       edges: Array[Edge],
       existingPatterns: Array[Pattern]
@@ -306,5 +305,148 @@ def createEdgesFromRelationships(
     // Return patterns and nodeIdToClusterLabel mapping
     (patterns, nodeIdToClusterLabel)
   }
+  def performLSHClusteringIncremental(df: DataFrame, increment: Int): DataFrame = {
+      val spark = df.sparkSession
+      import spark.implicits._
+
+      // Assemble the binary features into a vector
+      val assembler = new VectorAssembler()
+        .setInputCols(df.columns.filterNot(_ == "_nodeId"))
+        .setOutputCol("features")
+
+      val featureDF = assembler.transform(df)
+
+      // Assign consecutive row numbers for reliable chunking
+      val window = Window.orderBy(monotonically_increasing_id())
+      val dfWithRowNum = featureDF.withColumn("row_num", row_number().over(window))
+
+      val totalRows = dfWithRowNum.count()
+      val iterations = math.ceil(totalRows.toDouble / increment).toInt
+
+      var cumulativeData = spark.emptyDataFrame
+      var lshDF: DataFrame = spark.emptyDataFrame  // Initialize lshDF
+
+      for (i <- 1 to iterations) {
+          val startRow = (i - 1) * increment + 1
+          val endRow = i * increment
+
+          val chunkDF = dfWithRowNum
+              .filter($"row_num" >= startRow && $"row_num" <= endRow)
+              .drop("row_num")
+
+          // Update cumulative data
+          cumulativeData = if (cumulativeData.isEmpty) chunkDF else cumulativeData.union(chunkDF)
+
+          // Define similarity threshold and desired collision probability
+          val similarityThreshold = 0.8  // Adjust as needed
+          val desiredCollisionProbability = 0.9  // Adjust as needed
+
+          // Calculate the ideal number of hash tables
+          val numHashTablesCalculated = calculateNumHashTables(similarityThreshold, desiredCollisionProbability)
+
+          // Adjust based on cumulative dataset size
+          val datasetSize = cumulativeData.count()
+          val scalingFactor = math.log10(datasetSize + 1)  // Add 1 to avoid log(0)
+          val numHashTablesAdjusted = (numHashTablesCalculated * scalingFactor).toInt
+
+          // Set a minimum or maximum as needed
+          val numHashTables = math.max(numHashTablesAdjusted, numHashTablesCalculated)
+
+          println(s"Iteration $i/$iterations")
+          println(s"Calculated numHashTables: $numHashTablesCalculated, Adjusted numHashTables: $numHashTables")
+
+          // Apply MinHash LSH on cumulative data
+          val mh = new MinHashLSH()
+            .setNumHashTables(numHashTables)
+            .setInputCol("features")
+            .setOutputCol("hashes")
+
+          val model = mh.fit(cumulativeData)
+          lshDF = model.transform(cumulativeData)  // Update lshDF
+
+          // Print intermediate results
+          println(s"\nAfter processing chunk $i/$iterations:")
+          val (patterns, nodeIdToClusterLabel) = createPatternsFromLSHClusters(lshDF)
+          // Evaluate clustering if needed
+          // evaluateClustering(lshDF, nodeIdToClusterLabel)  // Use lshDF here
+      }
+
+      lshDF  // Return lshDF instead of cumulativeData
+  }
+
+  def performKMeansClusteringIncremental(df: DataFrame, k: Int, increment: Int): DataFrame = {
+      val spark = df.sparkSession
+      import spark.implicits._
+
+      // Check if 'features' column already exists
+      val featureDF = if (df.columns.contains("features")) {
+          df
+      } else {
+          // Assemble the binary features into a vector
+          val assembler = new VectorAssembler()
+            .setInputCols(df.columns.filterNot(col => col == "_nodeId" || col == "features"))
+            .setOutputCol("features")
+          assembler.transform(df)
+      }
+
+      // Assign consecutive row numbers for reliable chunking
+      val window = Window.orderBy(monotonically_increasing_id())
+      val dfWithRowNum = featureDF.withColumn("row_num", row_number().over(window))
+
+      val totalRows = dfWithRowNum.count()
+      val iterations = math.ceil(totalRows.toDouble / increment).toInt
+
+      var cumulativeData = spark.emptyDataFrame
+      var predictions: DataFrame = spark.emptyDataFrame  // Initialize predictions
+
+      for (i <- 1 to iterations) {
+          val startRow = (i - 1) * increment + 1
+          val endRow = i * increment
+
+          val chunkDF = dfWithRowNum
+              .filter($"row_num" >= startRow && $"row_num" <= endRow)
+              .drop("row_num")
+
+          // Update cumulative data
+          cumulativeData = if (cumulativeData.isEmpty) chunkDF else cumulativeData.union(chunkDF)
+
+          println(s"Iteration $i/$iterations")
+          println(s"Using fixed k = $k")
+
+          // Apply K-Means on the cumulative data
+          val kmeans = new KMeans()
+            .setK(k)
+            .setSeed(1L)
+            .setFeaturesCol("features")
+            .setPredictionCol("clusterLabel")
+
+          val model = kmeans.fit(cumulativeData)
+          predictions = model.transform(cumulativeData)  // Update predictions
+
+          // Print intermediate results
+          println(s"\nAfter processing chunk $i/$iterations:")
+          val (patterns, nodeIdToClusterLabel) = createPatternsFromKMeansClusters(predictions)
+          // evaluateClustering(predictions, nodeIdToClusterLabel)
+      }
+
+      predictions  // Return predictions instead of cumulativeData
+  }
+
+    def evaluateClustering(nodesDF: DataFrame, nodeIdToClusterLabel: Map[Long, String]): Unit = {
+    val spark = nodesDF.sparkSession
+    import spark.implicits._
+
+    // Prepare data for evaluation
+    val predictedLabelsDF = nodeIdToClusterLabel.toSeq.toDF("_nodeId", "predictedClusterLabel")
+    val nodesWithLabelsDF = nodesDF.select($"_nodeId".cast(LongType), $"_labels")
+    val evaluationDF = nodesWithLabelsDF.join(predictedLabelsDF, "_nodeId")
+
+    evaluationDF.cache()
+    evaluationDF.count() // Trigger caching
+
+    // Compute metrics using the existing method
+    ClusteringEvaluation.computeMetricsWithoutPairwise(evaluationDF)
+  }
+
   
 }
