@@ -1,4 +1,0 @@
-// data ingestion
-object Ingestion {
-
-}
