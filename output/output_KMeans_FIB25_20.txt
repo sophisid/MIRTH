@@ -1,53 +1,53 @@
-[info] welcome to sbt 1.9.9 (Ubuntu Java 11.0.24)
+[info] welcome to sbt 1.9.9 (Ubuntu Java 11.0.25)
 [info] loading settings for project schemadiscovery-build-build from metals.sbt ...
 [info] loading project definition from /mnt/fast/sophisid/cs562_sdpg/schemadiscovery/project/project
 [info] loading settings for project schemadiscovery-build from metals.sbt,plugins.sbt ...
 [info] loading project definition from /mnt/fast/sophisid/cs562_sdpg/schemadiscovery/project
 [success] Generated .bloop/schemadiscovery-build.json
-[success] Total time: 3 s, completed Nov 5, 2024, 10:08:31 AM
+[success] Total time: 3 s, completed Nov 12, 2024, 10:29:47 AM
 [info] loading settings for project root from build.sbt ...
 [info] set current project to schemadiscovery (in build file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/)
 [info] running (fork) Main k
 [error] Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
-[error] 24/11/05 10:08:38 INFO SparkContext: Running Spark version 3.4.1
-[error] 24/11/05 10:08:38 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-[error] 24/11/05 10:08:38 INFO ResourceUtils: ==============================================================
-[error] 24/11/05 10:08:38 INFO ResourceUtils: No custom resources configured for spark.driver.
-[error] 24/11/05 10:08:38 INFO ResourceUtils: ==============================================================
-[error] 24/11/05 10:08:38 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
-[error] 24/11/05 10:08:38 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
-[error] 24/11/05 10:08:38 INFO ResourceProfile: Limiting resource is cpu
-[error] 24/11/05 10:08:38 INFO ResourceProfileManager: Added ResourceProfile id: 0
-[error] 24/11/05 10:08:38 INFO SecurityManager: Changing view acls to: sophisid
-[error] 24/11/05 10:08:38 INFO SecurityManager: Changing modify acls to: sophisid
-[error] 24/11/05 10:08:38 INFO SecurityManager: Changing view acls groups to: 
-[error] 24/11/05 10:08:38 INFO SecurityManager: Changing modify acls groups to: 
-[error] 24/11/05 10:08:38 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
-[error] 24/11/05 10:08:38 INFO Utils: Successfully started service 'sparkDriver' on port 35567.
-[error] 24/11/05 10:08:38 INFO SparkEnv: Registering MapOutputTracker
+[error] 24/11/12 10:29:54 INFO SparkContext: Running Spark version 3.4.1
+[error] 24/11/12 10:29:54 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[error] 24/11/12 10:29:54 INFO ResourceUtils: ==============================================================
+[error] 24/11/12 10:29:54 INFO ResourceUtils: No custom resources configured for spark.driver.
+[error] 24/11/12 10:29:54 INFO ResourceUtils: ==============================================================
+[error] 24/11/12 10:29:54 INFO SparkContext: Submitted application: SchemaDiscoveryComparison
+[error] 24/11/12 10:29:54 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[error] 24/11/12 10:29:54 INFO ResourceProfile: Limiting resource is cpu
+[error] 24/11/12 10:29:54 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[error] 24/11/12 10:29:54 INFO SecurityManager: Changing view acls to: sophisid
+[error] 24/11/12 10:29:54 INFO SecurityManager: Changing modify acls to: sophisid
+[error] 24/11/12 10:29:54 INFO SecurityManager: Changing view acls groups to: 
+[error] 24/11/12 10:29:54 INFO SecurityManager: Changing modify acls groups to: 
+[error] 24/11/12 10:29:54 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: sophisid; groups with view permissions: EMPTY; users with modify permissions: sophisid; groups with modify permissions: EMPTY
+[error] 24/11/12 10:29:54 INFO Utils: Successfully started service 'sparkDriver' on port 36103.
+[error] 24/11/12 10:29:54 INFO SparkEnv: Registering MapOutputTracker
 [error] WARNING: An illegal reflective access operation has occurred
-[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_c2de1e30/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
+[error] WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/mnt/fast/sophisid/cs562_sdpg/schemadiscovery/target/bg-jobs/sbt_b0b60785/target/930ffb2e/b9186082/spark-unsafe_2.12-3.4.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
 [error] WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
 [error] WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
 [error] WARNING: All illegal access operations will be denied in a future release
-[error] 24/11/05 10:08:38 INFO SparkEnv: Registering BlockManagerMaster
-[error] 24/11/05 10:08:38 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
-[error] 24/11/05 10:08:38 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
-[error] 24/11/05 10:08:38 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
-[error] 24/11/05 10:08:38 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-1abd5868-bc86-4739-a99e-75948dc4a9b3
-[error] 24/11/05 10:08:38 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
-[error] 24/11/05 10:08:38 INFO SparkEnv: Registering OutputCommitCoordinator
-[error] 24/11/05 10:08:39 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
-[error] 24/11/05 10:08:39 INFO Utils: Successfully started service 'SparkUI' on port 4040.
-[error] 24/11/05 10:08:39 INFO Executor: Starting executor ID driver on host clusternode4
-[error] 24/11/05 10:08:39 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
-[error] 24/11/05 10:08:39 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 35527.
-[error] 24/11/05 10:08:39 INFO NettyBlockTransferService: Server created on clusternode4:35527
-[error] 24/11/05 10:08:39 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
-[error] 24/11/05 10:08:39 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 35527, None)
-[error] 24/11/05 10:08:39 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:35527 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 35527, None)
-[error] 24/11/05 10:08:39 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 35527, None)
-[error] 24/11/05 10:08:39 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 35527, None)
+[error] 24/11/12 10:29:54 INFO SparkEnv: Registering BlockManagerMaster
+[error] 24/11/12 10:29:54 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[error] 24/11/12 10:29:54 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[error] 24/11/12 10:29:54 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[error] 24/11/12 10:29:54 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-f1241a69-3ce0-41b3-8b90-5f028f75285e
+[error] 24/11/12 10:29:55 INFO MemoryStore: MemoryStore started with capacity 17.8 GiB
+[error] 24/11/12 10:29:55 INFO SparkEnv: Registering OutputCommitCoordinator
+[error] 24/11/12 10:29:55 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+[error] 24/11/12 10:29:55 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[error] 24/11/12 10:29:55 INFO Executor: Starting executor ID driver on host clusternode4
+[error] 24/11/12 10:29:55 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[error] 24/11/12 10:29:55 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 33447.
+[error] 24/11/12 10:29:55 INFO NettyBlockTransferService: Server created on clusternode4:33447
+[error] 24/11/12 10:29:55 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[error] 24/11/12 10:29:55 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, clusternode4, 33447, None)
+[error] 24/11/12 10:29:55 INFO BlockManagerMasterEndpoint: Registering block manager clusternode4:33447 with 17.8 GiB RAM, BlockManagerId(driver, clusternode4, 33447, None)
+[error] 24/11/12 10:29:55 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, clusternode4, 33447, None)
+[error] 24/11/12 10:29:55 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, clusternode4, 33447, None)
 [info] Loading all nodes from Neo4j
 [info] Total nodes loaded: 802473
 [info] Schema of nodesDF:
@@ -82,6 +82,7 @@
 [info]  |-- meshHost: string (nullable = true)
 [info]  |-- pre: string (nullable = true)
 [info] Loading all relationships from Neo4j
+[info] Time taken for Data Loading and Preprocessing: 16.01 seconds
 [info] Features assembled for k-means clustering:
 [info] +-------+--------------+
 [info] |_nodeId|      features|
@@ -93,33 +94,124 @@
 [info] |      4|(28,[1],[1.0])|
 [info] +-------+--------------+
 [info] only showing top 5 rows
-[info] Loading all nodes from Neo4j
-[info] Number of distinct types/patterns in Neo4j (including 'NoLabel'): 294
-[info] Setting k for K-Means clustering to: 294
-[info] Total patterns created: 124
-[info] Sample patterns:
-[info] Nodes: [Node(label=Cluster_34, properties={postHPThreshold, uuid, roiHierarchy, preHPThreshold, roiInfo, lastDatabaseEdit, totalPostCount, superLevelRois, totalPreCount, latestMutationId, dataset, _labels, neuroglancerMeta, postHighAccuracyThreshold, meshHost}, optional=false)]
-[info] Edges: []
-[info] Constraints: 
-[info] Nodes: [Node(label=Cluster_1, properties={_labels, type, location, confidence}, optional=false)]
-[info] Edges: []
-[info] Constraints: 
-[info] Nodes: [Node(label=Cluster_6, properties={_labels, location, proximal, confidence}, optional=false)]
-[info] Edges: []
-[info] Constraints: 
-[info] Nodes: [Node(label=Cluster_31, properties={pre, post, bodyId, size, cropped, distal, status, _labels}, optional=false)]
-[info] Edges: []
-[info] Constraints: 
-[info] Nodes: [Node(label=Cluster_85, properties={pre, post, bodyId, size, distal, proximal, instance, roiInfo, status, _labels}, optional=false)]
-[info] Edges: []
-[info] Constraints: 
-[info] === Evaluation Results for K-Means Clustering ===
-[info] Precision: 0.9053
-[info] Recall: 1.0000
-[info] F1-Score: 0.9503
-[info] === K-Means Clustering Results ===
-[info] Number of nodes assigned to clusters: 802473
-[info] Number of edges after clustering: 5
-[info] Number of patterns (types) found: 124
-[info] Types found: Cluster_72, Cluster_52, Cluster_61, Cluster_91, Cluster_50, Cluster_41, Cluster_83, Cluster_105, Cluster_44, Cluster_85, Cluster_116, Cluster_45, Cluster_34, Cluster_79, Cluster_2, Cluster_22, Cluster_117, Cluster_80, Cluster_64, Cluster_27, Cluster_106, Cluster_53, Cluster_38, Cluster_75, Cluster_23, Cluster_7, Cluster_113, Cluster_11, Cluster_102, Cluster_96, Cluster_33, Cluster_120, Cluster_68, Cluster_16, Cluster_57, Cluster_46, Cluster_109, Cluster_108, Cluster_5, Cluster_12, Cluster_30, Cluster_94, Cluster_42, Cluster_99, Cluster_19, Cluster_121, Cluster_1, Cluster_84, Cluster_110, Cluster_67, Cluster_103, Cluster_74, Cluster_114, Cluster_95, Cluster_55, Cluster_88, Cluster_15, Cluster_89, Cluster_24, Cluster_49, Cluster_8, Cluster_63, Cluster_37, Cluster_35, Cluster_78, Cluster_56, Cluster_31, Cluster_77, Cluster_76, Cluster_0, Cluster_13, Cluster_26, Cluster_54, Cluster_47, Cluster_87, Cluster_66, Cluster_81, Cluster_111, Cluster_20, Cluster_70, Cluster_100, Cluster_115, Cluster_98, Cluster_9, Cluster_122, Cluster_18, Cluster_29, Cluster_62, Cluster_25, Cluster_48, Cluster_119, Cluster_51, Cluster_92, Cluster_104, Cluster_73, Cluster_4, Cluster_86, Cluster_10, Cluster_71, Cluster_36, Cluster_40, Cluster_82, Cluster_60, Cluster_59, Cluster_14, Cluster_32, Cluster_21, Cluster_101, Cluster_123, Cluster_112, Cluster_3, Cluster_17, Cluster_58, Cluster_43, Cluster_65, Cluster_39, Cluster_93, Cluster_118, Cluster_90, Cluster_6, Cluster_107, Cluster_28, Cluster_69, Cluster_97
-[success] Total time: 104 s (01:44), completed Nov 5, 2024, 10:10:16 AM
+[info] Number of distinct types/patterns in Neo4j (including 'NoLabel'): 7
+[info] Setting k for K-Means clustering to: 7
+[error] 24/11/12 10:30:35 ERROR Instrumentation: java.lang.ClassNotFoundException: scala.math.Ordering$Reverse
+[error] 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+[error] 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+[error] 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+[error] 	at java.base/java.lang.Class.forName0(Native Method)
+[error] 	at java.base/java.lang.Class.forName(Class.java:398)
+[error] 	at org.apache.spark.util.Utils$.classForName(Utils.scala:225)
+[error] 	at org.apache.spark.serializer.KryoSerializer.newKryo(KryoSerializer.scala:224)
+[error] 	at org.apache.spark.serializer.KryoSerializer$$anon$1.create(KryoSerializer.scala:104)
+[error] 	at com.esotericsoftware.kryo.pool.KryoPoolQueueImpl.borrow(KryoPoolQueueImpl.java:48)
+[error] 	at org.apache.spark.serializer.KryoSerializer$PoolWrapper.borrow(KryoSerializer.scala:111)
+[error] 	at org.apache.spark.serializer.KryoSerializerInstance.borrowKryo(KryoSerializer.scala:351)
+[error] 	at org.apache.spark.serializer.KryoSerializerInstance.getAutoReset(KryoSerializer.scala:451)
+[error] 	at org.apache.spark.serializer.KryoSerializer.supportsRelocationOfSerializedObjects$lzycompute(KryoSerializer.scala:258)
+[error] 	at org.apache.spark.serializer.KryoSerializer.supportsRelocationOfSerializedObjects(KryoSerializer.scala:254)
+[error] 	at org.apache.spark.shuffle.sort.SortShuffleManager$.canUseSerializedShuffle(SortShuffleManager.scala:233)
+[error] 	at org.apache.spark.shuffle.sort.SortShuffleManager.registerShuffle(SortShuffleManager.scala:106)
+[error] 	at org.apache.spark.ShuffleDependency.<init>(Dependency.scala:103)
+[error] 	at org.apache.spark.rdd.ShuffledRDD.getDependencies(ShuffledRDD.scala:87)
+[error] 	at org.apache.spark.rdd.RDD.$anonfun$dependencies$2(RDD.scala:255)
+[error] 	at scala.Option.getOrElse(Option.scala:189)
+[error] 	at org.apache.spark.rdd.RDD.dependencies(RDD.scala:251)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.visit$2(DAGScheduler.scala:788)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.eagerlyComputePartitionsForRddAndAncestors(DAGScheduler.scala:795)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.submitJob(DAGScheduler.scala:913)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:961)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2263)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2284)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2303)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2328)
+[error] 	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1019)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+[error] 	at org.apache.spark.rdd.RDD.withScope(RDD.scala:405)
+[error] 	at org.apache.spark.rdd.RDD.collect(RDD.scala:1018)
+[error] 	at org.apache.spark.rdd.PairRDDFunctions.$anonfun$countByKey$1(PairRDDFunctions.scala:367)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+[error] 	at org.apache.spark.rdd.RDD.withScope(RDD.scala:405)
+[error] 	at org.apache.spark.rdd.PairRDDFunctions.countByKey(PairRDDFunctions.scala:367)
+[error] 	at org.apache.spark.rdd.RDD.$anonfun$countByValue$1(RDD.scala:1312)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+[error] 	at org.apache.spark.rdd.RDD.withScope(RDD.scala:405)
+[error] 	at org.apache.spark.rdd.RDD.countByValue(RDD.scala:1312)
+[error] 	at org.apache.spark.mllib.clustering.KMeans.initKMeansParallel(KMeans.scala:448)
+[error] 	at org.apache.spark.mllib.clustering.KMeans.runAlgorithmWithWeight(KMeans.scala:273)
+[error] 	at org.apache.spark.mllib.clustering.KMeans.runWithWeight(KMeans.scala:231)
+[error] 	at org.apache.spark.ml.clustering.KMeans.trainWithRow(KMeans.scala:446)
+[error] 	at org.apache.spark.ml.clustering.KMeans.$anonfun$fit$1(KMeans.scala:382)
+[error] 	at org.apache.spark.ml.util.Instrumentation$.$anonfun$instrumented$1(Instrumentation.scala:191)
+[error] 	at scala.util.Try$.apply(Try.scala:213)
+[error] 	at org.apache.spark.ml.util.Instrumentation$.instrumented(Instrumentation.scala:191)
+[error] 	at org.apache.spark.ml.clustering.KMeans.fit(KMeans.scala:371)
+[error] 	at Clustering$.performKMeansClustering(Clustering.scala:241)
+[error] 	at Main$.runKMeansClustering(Main.scala:157)
+[error] 	at Main$.main(Main.scala:63)
+[error] 	at Main.main(Main.scala)
+[error] Exception in thread "main" java.lang.ClassNotFoundException: scala.math.Ordering$Reverse
+[error] 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+[error] 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+[error] 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+[error] 	at java.base/java.lang.Class.forName0(Native Method)
+[error] 	at java.base/java.lang.Class.forName(Class.java:398)
+[error] 	at org.apache.spark.util.Utils$.classForName(Utils.scala:225)
+[error] 	at org.apache.spark.serializer.KryoSerializer.newKryo(KryoSerializer.scala:224)
+[error] 	at org.apache.spark.serializer.KryoSerializer$$anon$1.create(KryoSerializer.scala:104)
+[error] 	at com.esotericsoftware.kryo.pool.KryoPoolQueueImpl.borrow(KryoPoolQueueImpl.java:48)
+[error] 	at org.apache.spark.serializer.KryoSerializer$PoolWrapper.borrow(KryoSerializer.scala:111)
+[error] 	at org.apache.spark.serializer.KryoSerializerInstance.borrowKryo(KryoSerializer.scala:351)
+[error] 	at org.apache.spark.serializer.KryoSerializerInstance.getAutoReset(KryoSerializer.scala:451)
+[error] 	at org.apache.spark.serializer.KryoSerializer.supportsRelocationOfSerializedObjects$lzycompute(KryoSerializer.scala:258)
+[error] 	at org.apache.spark.serializer.KryoSerializer.supportsRelocationOfSerializedObjects(KryoSerializer.scala:254)
+[error] 	at org.apache.spark.shuffle.sort.SortShuffleManager$.canUseSerializedShuffle(SortShuffleManager.scala:233)
+[error] 	at org.apache.spark.shuffle.sort.SortShuffleManager.registerShuffle(SortShuffleManager.scala:106)
+[error] 	at org.apache.spark.ShuffleDependency.<init>(Dependency.scala:103)
+[error] 	at org.apache.spark.rdd.ShuffledRDD.getDependencies(ShuffledRDD.scala:87)
+[error] 	at org.apache.spark.rdd.RDD.$anonfun$dependencies$2(RDD.scala:255)
+[error] 	at scala.Option.getOrElse(Option.scala:189)
+[error] 	at org.apache.spark.rdd.RDD.dependencies(RDD.scala:251)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.visit$2(DAGScheduler.scala:788)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.eagerlyComputePartitionsForRddAndAncestors(DAGScheduler.scala:795)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.submitJob(DAGScheduler.scala:913)
+[error] 	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:961)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2263)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2284)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2303)
+[error] 	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2328)
+[error] 	at org.apache.spark.rdd.RDD.$anonfun$collect$1(RDD.scala:1019)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+[error] 	at org.apache.spark.rdd.RDD.withScope(RDD.scala:405)
+[error] 	at org.apache.spark.rdd.RDD.collect(RDD.scala:1018)
+[error] 	at org.apache.spark.rdd.PairRDDFunctions.$anonfun$countByKey$1(PairRDDFunctions.scala:367)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+[error] 	at org.apache.spark.rdd.RDD.withScope(RDD.scala:405)
+[error] 	at org.apache.spark.rdd.PairRDDFunctions.countByKey(PairRDDFunctions.scala:367)
+[error] 	at org.apache.spark.rdd.RDD.$anonfun$countByValue$1(RDD.scala:1312)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
+[error] 	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
+[error] 	at org.apache.spark.rdd.RDD.withScope(RDD.scala:405)
+[error] 	at org.apache.spark.rdd.RDD.countByValue(RDD.scala:1312)
+[error] 	at org.apache.spark.mllib.clustering.KMeans.initKMeansParallel(KMeans.scala:448)
+[error] 	at org.apache.spark.mllib.clustering.KMeans.runAlgorithmWithWeight(KMeans.scala:273)
+[error] 	at org.apache.spark.mllib.clustering.KMeans.runWithWeight(KMeans.scala:231)
+[error] 	at org.apache.spark.ml.clustering.KMeans.trainWithRow(KMeans.scala:446)
+[error] 	at org.apache.spark.ml.clustering.KMeans.$anonfun$fit$1(KMeans.scala:382)
+[error] 	at org.apache.spark.ml.util.Instrumentation$.$anonfun$instrumented$1(Instrumentation.scala:191)
+[error] 	at scala.util.Try$.apply(Try.scala:213)
+[error] 	at org.apache.spark.ml.util.Instrumentation$.instrumented(Instrumentation.scala:191)
+[error] 	at org.apache.spark.ml.clustering.KMeans.fit(KMeans.scala:371)
+[error] 	at Clustering$.performKMeansClustering(Clustering.scala:241)
+[error] 	at Main$.runKMeansClustering(Main.scala:157)
+[error] 	at Main$.main(Main.scala:63)
+[error] 	at Main.main(Main.scala)
+[error] Nonzero exit code returned from runner: 1
+[error] (Compile / run) Nonzero exit code returned from runner: 1
+[error] Total time: 48 s, completed Nov 12, 2024, 10:30:36 AM
