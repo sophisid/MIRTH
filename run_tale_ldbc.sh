@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ROOT_DIR="/mnt/fast/sophisid"
-PROJECT_DIR="/mnt/fast/sophisid/cs562_sdpg"
+ROOT_DIR="your_root/directory"
+PROJECT_DIR="your_project/directory"
 DATASETS_DIR="$PROJECT_DIR/noisy_datasets/LDBC"
 SCRIPT_DIR="$PROJECT_DIR/scripts"
 SCHEMA_DISCOVERY_DIR="$PROJECT_DIR/schemadiscovery"
@@ -77,7 +77,7 @@ do
     sleep 100  # Adjust the time if necessary
 
     # Step 5: Run your Scala program with LSH clustering
-    #echo "Running Scala program with LSH clustering..."
+    echo "Running Scala program with LSH clustering..."
     cd "$SCHEMA_DISCOVERY_DIR" || { echo "Couldn't change directory to $SCHEMA_DISCOVERY_DIR"; exit 1; }
     sbt "run l" > "$OUTPUT_BASE_DIR/output_LSH_LDBC_${dataset#corrupted}.txt"
 

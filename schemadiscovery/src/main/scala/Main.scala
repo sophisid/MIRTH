@@ -97,6 +97,11 @@ object Main {
 
   def runLSHClustering(spark: SparkSession, nodesDF: DataFrame, relationshipsDF: DataFrame, increment: Int): Unit = {
     import spark.implicits._
+    val runtime = Runtime.getRuntime
+
+    // Trigger garbage collection before measuring initial memory
+    runtime.gc()
+    val initialMemory = runtime.totalMemory() - runtime.freeMemory()
     val clusteringStartTime = System.nanoTime()
 
     // LSH Clustering Pipeline
@@ -112,7 +117,14 @@ object Main {
 
     val clusteringEndTime = System.nanoTime()
     val clusteringTime = (clusteringEndTime - clusteringStartTime) / 1e9d  // Convert to seconds
+    runtime.gc()
+    val finalMemory = runtime.totalMemory() - runtime.freeMemory()
+
+    // Calculate memory used during clustering in MB
+    val memoryUsedMB = (finalMemory - initialMemory) / (1024 * 1024)
+
     println(f"\nTime taken for LSH Clustering: $clusteringTime%.2f seconds")
+    println(f"Memory used for LSH Clustering: $memoryUsedMB%.2f MB")
 
     println("=== Evaluation Results for LSH Clustering ===")
     evaluateClustering(nodesDF, lshNodeIdToClusterLabel)
@@ -131,6 +143,12 @@ object Main {
 
   def runKMeansClustering(spark: SparkSession, nodesDF: DataFrame, relationshipsDF: DataFrame, increment: Int): Unit = {
     import spark.implicits._
+    val runtime = Runtime.getRuntime
+
+    // Trigger garbage collection before measuring initial memory
+    runtime.gc()
+    val initialMemory = runtime.totalMemory() - runtime.freeMemory()
+
 
     val clusteringStartTime = System.nanoTime()
 
@@ -163,7 +181,15 @@ object Main {
 
     val clusteringEndTime = System.nanoTime()
     val clusteringTime = (clusteringEndTime - clusteringStartTime) / 1e9d  // Convert to seconds
+    runtime.gc()
+    val finalMemory = runtime.totalMemory() - runtime.freeMemory()
+
+    // Calculate memory used during clustering in MB
+    val memoryUsedMB = (finalMemory - initialMemory) / (1024 * 1024)
+
     println(f"\nTime taken for K-Means Clustering: $clusteringTime%.2f seconds")
+    println(f"Memory used for K-Means Clustering: $memoryUsedMB%.2f MB")
+
 
     println("=== Evaluation Results for K-Means Clustering ===")
     evaluateClustering(nodesDF, kmeansNodeIdToClusterLabel)

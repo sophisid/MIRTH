@@ -34,8 +34,9 @@ src_managed/
 .worksheet
 
 # datasets non ziped
-datasets/*
+
 noisy_datasets/*
+output/*
 
 .metals/metals.mv.db
 /.metals

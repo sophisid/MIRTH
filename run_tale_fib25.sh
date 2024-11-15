@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ROOT_DIR="/mnt/fast/sophisid"
-PROJECT_DIR="/mnt/fast/sophisid/cs562_sdpg"
+ROOT_DIR="your_root/directory"
+PROJECT_DIR="your_project/directory"
 DATASETS_DIR="$PROJECT_DIR/noisy_datasets/FIB25"
 SCRIPT_DIR="$PROJECT_DIR/scripts"
 SCHEMA_DISCOVERY_DIR="$PROJECT_DIR/schemadiscovery"
