@@ -2,10 +2,8 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
-import org.neo4j.driver.{AuthTokens, GraphDatabase}
 import java.time.Duration
 import java.time.Instant
-
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -34,7 +32,6 @@ object Main {
     val dataLoadEndTime = System.nanoTime()
     val dataLoadTime = (dataLoadEndTime - dataLoadStartTime) / 1e9d  // Convert to seconds
     println(f"\nTime taken for Data Loading and Preprocessing: $dataLoadTime%.2f seconds")
-
 
     // Argument for which clustering to run
     if (args.length == 0) {
@@ -66,7 +63,7 @@ object Main {
         // Run both LSH and K-Means Clustering
         runLSHClustering(spark, nodesWithLabelsDF, relationshipsDF, increment)
         runKMeansClustering(spark, nodesWithLabelsDF, relationshipsDF, increment)
-      } // Missing closing brace added here
+      }
       case _ => {
         println("Invalid argument. Please provide 'l' for LSH only, 'k' for K-Means only, 'b' for both.")
         sys.exit(1)
@@ -105,13 +102,14 @@ object Main {
     val clusteringStartTime = System.nanoTime()
 
     // LSH Clustering Pipeline
-    val binaryMatrixDF_LSH = DataProcessor.createBinaryMatrix(nodesDF).cache()
+    val (binaryMatrixDF_LSH, propertyDataTypes) = DataProcessor.createBinaryMatrix(nodesDF)
+    // binaryMatrixDF_LSH.cache()
     val lshDF = if (increment > 0) {
-      Clustering.performLSHClusteringIncremental(binaryMatrixDF_LSH, increment).cache()
+      Clustering.performLSHClusteringIncremental(binaryMatrixDF_LSH, increment, propertyDataTypes).cache()
     } else {
       Clustering.performLSHClustering(binaryMatrixDF_LSH).cache()
     }
-    val (lshPatterns, lshNodeIdToClusterLabel) = Clustering.createPatternsFromLSHClusters(lshDF)
+    val (lshPatterns, lshNodeIdToClusterLabel) = Clustering.createPatternsFromLSHClusters(lshDF, propertyDataTypes)
     val edges_LSH = Clustering.createEdgesFromRelationships(relationshipsDF, lshNodeIdToClusterLabel)
     val updatedPatterns_LSH = Clustering.integrateEdgesIntoPatterns(edges_LSH, lshPatterns)
 
@@ -149,8 +147,10 @@ object Main {
     runtime.gc()
     val initialMemory = runtime.totalMemory() - runtime.freeMemory()
 
-
     val clusteringStartTime = System.nanoTime()
+
+    // Get property data types
+    val propertyDataTypes = DataProcessor.getPropertyDataTypes(nodesDF)
 
     // K-Means Clustering Pipeline
     val featureDF_KMeans = DataProcessor.assembleFeaturesForKMeans(nodesDF).cache()
@@ -170,12 +170,12 @@ object Main {
     println(s"Setting k for K-Means clustering to: $k")
 
     val kmeansDF = if (increment > 0) {
-      Clustering.performKMeansClusteringIncremental(featureDF_KMeans, k, increment).cache()
+      Clustering.performKMeansClusteringIncremental(featureDF_KMeans, k, increment, propertyDataTypes).cache()
     } else {
       Clustering.performKMeansClustering(featureDF_KMeans, k).cache()
     }
 
-    val (kmeansPatterns, kmeansNodeIdToClusterLabel) = Clustering.createPatternsFromKMeansClusters(kmeansDF)
+    val (kmeansPatterns, kmeansNodeIdToClusterLabel) = Clustering.createPatternsFromKMeansClusters(kmeansDF, propertyDataTypes)
     val edges_KMeans = Clustering.createEdgesFromRelationships(relationshipsDF, kmeansNodeIdToClusterLabel)
     val updatedPatterns_KMeans = Clustering.integrateEdgesIntoPatterns(edges_KMeans, kmeansPatterns)
 
@@ -189,7 +189,6 @@ object Main {
 
     println(f"\nTime taken for K-Means Clustering: $clusteringTime%.2f seconds")
     println(f"Memory used for K-Means Clustering: $memoryUsedMB%.2f MB")
-
 
     println("=== Evaluation Results for K-Means Clustering ===")
     evaluateClustering(nodesDF, kmeansNodeIdToClusterLabel)
