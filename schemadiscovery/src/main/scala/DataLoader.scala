@@ -1,7 +1,6 @@
 import org.apache.spark.sql.{DataFrame, Row, SparkSession}
 import org.apache.spark.sql.types._
 import org.neo4j.driver.{AuthTokens, GraphDatabase}
-import java.util.HashMap
 import scala.collection.JavaConverters._
 
 object DataLoader {
@@ -26,7 +25,8 @@ object DataLoader {
       val labels = record.get("labels").asList().asScala.map(_.toString)
       val props = node.asMap().asScala.toMap
       // Include node ID and labels
-      props + ("_nodeId" -> node.id().toString) + ("_labels" -> labels.mkString(":"))
+      // Store _nodeId as Long
+      props + ("_nodeId" -> node.id()) + ("_labels" -> labels.mkString(":"))
     }
 
     session.close()
@@ -37,14 +37,24 @@ object DataLoader {
 
     // Define the schema based on the keys
     val fields = allKeys.map { key =>
-      StructField(key, StringType, nullable = true)
+      if (key == "_nodeId") {
+        StructField(key, LongType, nullable = false)
+      } else {
+        StructField(key, StringType, nullable = true)
+      }
     }.toArray
     val schema = StructType(fields)
 
     // Convert list of Maps to DataFrame
     val rows = nodes.map { nodeMap =>
       val values = schema.fields.map { field =>
-        Option(nodeMap.getOrElse(field.name, null)).map(_.toString).orNull
+        Option(nodeMap.getOrElse(field.name, null)).map { value =>
+          if (field.name == "_nodeId") {
+            value.asInstanceOf[Long]
+          } else {
+            value.toString
+          }
+        }.orNull
       }
       Row(values: _*)
     }
@@ -68,7 +78,7 @@ object DataLoader {
 
     println("Loading all relationships from Neo4j")
 
-    val result = session.run("MATCH (n)-[r]->(m) RETURN id(n) AS srcId, id(m) AS dstId, type(r) AS relationshipType, properties(r) AS properties LIMIT 1000")
+    val result = session.run("MATCH (n)-[r]->(m) RETURN id(n) AS srcId, id(m) AS dstId, type(r) AS relationshipType, properties(r) AS properties")
 
     val relationships = result.list().asScala.map { record =>
       val srcId = record.get("srcId").asLong()
@@ -84,7 +94,7 @@ object DataLoader {
 
     // DataFrame
     val relationshipsDF = relationships.toDF("srcId", "dstId", "relationshipType", "properties")
-
+    println(s"Total relationships loaded: ${relationshipsDF.count()}")
     relationshipsDF
   }
 }
