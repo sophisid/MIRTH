@@ -60,8 +60,8 @@ do
     sbt "run l" > "$OUTPUT_BASE_DIR/output_LSH_MB6_${dataset#corrupted}.txt"
 
     # Step 6: Run your Scala program with K-Means clustering
-    echo "Running Scala program with K-Means clustering..."
-    sbt "run k" > "$OUTPUT_BASE_DIR/output_KMeans_MB6_${dataset#corrupted}.txt"
+    # echo "Running Scala program with K-Means clustering..."
+    # sbt "run k" > "$OUTPUT_BASE_DIR/output_KMeans_MB6_${dataset#corrupted}.txt"
     cd "$ROOT_DIR" || { echo "Couldn't change back to $ROOT_DIR"; exit 1; }
 
     # Step 7: Stop Neo4j

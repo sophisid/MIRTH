@@ -6,13 +6,12 @@ import org.neo4j.driver.{AuthTokens, GraphDatabase}
 import java.time.Duration
 import java.time.Instant
 
-
 object Main {
   def main(args: Array[String]): Unit = {
     val programStartTime = System.nanoTime()
     val spark = SparkSession.builder()
       .appName("SchemaDiscoveryComparison")
-      .master("local[*]")
+      .master("local[19]")
       .config("spark.serializer", "org.apache.spark.serializer.JavaSerializer")
       .getOrCreate()
 
@@ -34,7 +33,6 @@ object Main {
     val dataLoadEndTime = System.nanoTime()
     val dataLoadTime = (dataLoadEndTime - dataLoadStartTime) / 1e9d  // Convert to seconds
     println(f"\nTime taken for Data Loading and Preprocessing: $dataLoadTime%.2f seconds")
-
 
     // Argument for which clustering to run
     if (args.length == 0) {
@@ -66,7 +64,7 @@ object Main {
         // Run both LSH and K-Means Clustering
         runLSHClustering(spark, nodesWithLabelsDF, relationshipsDF, increment)
         runKMeansClustering(spark, nodesWithLabelsDF, relationshipsDF, increment)
-      } // Missing closing brace added here
+      }
       case _ => {
         println("Invalid argument. Please provide 'l' for LSH only, 'k' for K-Means only, 'b' for both.")
         sys.exit(1)
@@ -139,6 +137,23 @@ object Main {
     println(s"Number of edges after clustering: $numEdges_LSH")
     println(s"Number of patterns (types) found: $numPatterns_LSH")
     println(s"Types found: ${types_LSH.mkString(", ")}")
+
+    // Now, perform the Jaccard similarity computation and merge patterns
+    println("\n=== Merging Similar Patterns using Jaccard Similarity ===")
+    val similarityThreshold = 0.8  // Adjust as needed
+    val mergedPatterns_LSH = Clustering.mergeSimilarPatterns(updatedPatterns_LSH, similarityThreshold)
+
+    // Update the nodeIdToClusterLabel mapping
+    val mergedNodeIdToClusterLabel = Clustering.updateNodeIdToClusterLabel(lshNodeIdToClusterLabel, mergedPatterns_LSH)
+
+    // Evaluate clustering after merging
+    println("=== Evaluation Results for LSH Clustering After Merging ===")
+    evaluateClustering(nodesDF, mergedNodeIdToClusterLabel)
+
+    val numMergedPatterns_LSH = mergedPatterns_LSH.length
+    println(s"Number of patterns after merging: $numMergedPatterns_LSH")
+    println("Sample merged patterns:")
+    mergedPatterns_LSH.take(5).foreach(pattern => println(pattern.toString))
   }
 
   def runKMeansClustering(spark: SparkSession, nodesDF: DataFrame, relationshipsDF: DataFrame, increment: Int): Unit = {
@@ -149,7 +164,6 @@ object Main {
     runtime.gc()
     val initialMemory = runtime.totalMemory() - runtime.freeMemory()
 
-
     val clusteringStartTime = System.nanoTime()
 
     // K-Means Clustering Pipeline
@@ -157,7 +171,7 @@ object Main {
 
     // Compute the number of distinct types/patterns in the Neo4j database
     val numTypes = nodesDF
-      .withColumn("label_array", split($"_labels", ",")) // Adjust delimiter if necessary
+      .withColumn("label_array", split($"_labels", ":")) // Adjust delimiter if necessary
       .withColumn("label_array", expr("filter(label_array, x -> x != '')")) // Remove empty strings from array
       .select(explode($"label_array").alias("label"))
       .select(trim($"label").alias("label"))
@@ -190,7 +204,6 @@ object Main {
     println(f"\nTime taken for K-Means Clustering: $clusteringTime%.2f seconds")
     println(f"Memory used for K-Means Clustering: $memoryUsedMB%.2f MB")
 
-
     println("=== Evaluation Results for K-Means Clustering ===")
     evaluateClustering(nodesDF, kmeansNodeIdToClusterLabel)
 
@@ -204,5 +217,22 @@ object Main {
     println(s"Number of edges after clustering: $numEdges_KMeans")
     println(s"Number of patterns (types) found: $numPatterns_KMeans")
     println(s"Types found: ${types_KMeans.mkString(", ")}")
+
+    // Now, perform the Jaccard similarity computation and merge patterns
+    println("\n=== Merging Similar Patterns using Jaccard Similarity ===")
+    val similarityThreshold = 0.8  // Adjust as needed
+    val mergedPatterns_KMeans = Clustering.mergeSimilarPatterns(updatedPatterns_KMeans, similarityThreshold)
+
+    // Update the nodeIdToClusterLabel mapping
+    val mergedNodeIdToClusterLabel = Clustering.updateNodeIdToClusterLabel(kmeansNodeIdToClusterLabel, mergedPatterns_KMeans)
+
+    // Evaluate clustering after merging
+    println("=== Evaluation Results for K-Means Clustering After Merging ===")
+    evaluateClustering(nodesDF, mergedNodeIdToClusterLabel)
+
+    val numMergedPatterns_KMeans = mergedPatterns_KMeans.length
+    println(s"Number of patterns after merging: $numMergedPatterns_KMeans")
+    println("Sample merged patterns:")
+    mergedPatterns_KMeans.take(5).foreach(pattern => println(pattern.toString))
   }
 }
