@@ -266,7 +266,7 @@ If you prefer more control, follow the manual steps:
 
 ### Incremental Script
 
-An incremental script is also provided (an example shown below) to process multiple datasets incrementally. This script follows a similar pattern but runs the Scala program in an "incremental" mode (indicated by `sbt "run l i 500000"`) after importing each dataset. It then stops Neo4j, cleans up processes, and moves on to the next dataset.
+An incremental script is also provided (an example shown below) to process datasets incrementally. This script follows a similar pattern but runs the Scala program in an "incremental" mode (indicated by `sbt "run l i 500000"`) after importing the dataset. It then stops Neo4j, cleans up processes, and moves on to the next dataset.
 
 **Usage Incremental Script:**  
 1. Set environment variables and directories inside these scripts.
