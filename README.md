@@ -116,7 +116,6 @@ export current_dataset_dir=<path-to-datasets>
 
 ```
 $NEO4J_DIR/bin/neo4j-admin import --database=neo4j --delimiter='|' \
-    --nodes=Comment="$current_dataset_dir/comment_0_0_corrupted.csv" \
     --nodes=Forum="$current_dataset_dir/forum_0_0_corrupted.csv" \
     --nodes=Person="$current_dataset_dir/person_0_0_corrupted.csv" \
     --nodes=Post="$current_dataset_dir/post_0_0_corrupted.csv" \
@@ -124,11 +123,6 @@ $NEO4J_DIR/bin/neo4j-admin import --database=neo4j --delimiter='|' \
     --nodes=Organisation="$current_dataset_dir/organisation_0_0_corrupted.csv" \
     --nodes=TagClass="$current_dataset_dir/tagclass_0_0_corrupted.csv" \
     --nodes=Tag="$current_dataset_dir/tag_0_0_corrupted.csv" \
-    --relationships=HAS_CREATOR="$current_dataset_dir/comment_hasCreator_person_0_0_corrupted.csv" \
-    --relationships=HAS_TAG="$current_dataset_dir/comment_hasTag_tag_0_0_corrupted.csv" \
-    --relationships=IS_LOCATED_IN="$current_dataset_dir/comment_isLocatedIn_place_0_0_corrupted.csv" \
-    --relationships=REPLY_OF="$current_dataset_dir/comment_replyOf_comment_0_0_corrupted.csv" \
-    --relationships=REPLY_OF="$current_dataset_dir/comment_replyOf_post_0_0_corrupted.csv" \
     --relationships=CONTAINER_OF="$current_dataset_dir/forum_containerOf_post_0_0_corrupted.csv" \
     --relationships=HAS_MEMBER="$current_dataset_dir/forum_hasMember_person_0_0_corrupted.csv" \
     --relationships=HAS_MODERATOR="$current_dataset_dir/forum_hasModerator_person_0_0_corrupted.csv" \
@@ -136,7 +130,6 @@ $NEO4J_DIR/bin/neo4j-admin import --database=neo4j --delimiter='|' \
     --relationships=HAS_INTEREST="$current_dataset_dir/person_hasInterest_tag_0_0_corrupted.csv" \
     --relationships=IS_LOCATED_IN="$current_dataset_dir/person_isLocatedIn_place_0_0_corrupted.csv" \
     --relationships=KNOWS="$current_dataset_dir/person_knows_person_0_0_corrupted.csv" \
-    --relationships=LIKES="$current_dataset_dir/person_likes_comment_0_0_corrupted.csv" \
     --relationships=LIKES="$current_dataset_dir/person_likes_post_0_0_corrupted.csv" \
     --relationships=STUDIES_AT="$current_dataset_dir/person_studyAt_organisation_0_0_corrupted.csv" \
     --relationships=WORKS_AT="$current_dataset_dir/person_workAt_organisation_0_0_corrupted.csv" \
